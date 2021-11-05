@@ -1,0 +1,4 @@
+Bundle-Name: user-custom-fields-management
+Bundle-SymbolicName: com.liferay.simplify.user.customfields.management
+Bundle-Version: 1.0.0
+Export-Package: com.liferay.simplify.user.customfields.management.constants
