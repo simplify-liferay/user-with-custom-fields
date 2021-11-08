@@ -8,6 +8,10 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@ taglib prefix="clay" uri="http://liferay.com/tld/clay" %>
 
+<%@ page import="com.liferay.simplify.user.customfields.management.constants.MVCCommandNames" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="com.liferay.portal.kernel.util.CalendarFactoryUtil" %>
+
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
