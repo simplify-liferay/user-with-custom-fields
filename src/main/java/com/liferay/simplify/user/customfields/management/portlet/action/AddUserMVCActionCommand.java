@@ -1,11 +1,15 @@
 package com.liferay.simplify.user.customfields.management.portlet.action;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.UserEmailAddressException;
+import com.liferay.portal.kernel.exception.UserScreenNameException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -53,9 +57,16 @@ public class AddUserMVCActionCommand extends BaseMVCActionCommand {
         ServiceContext serviceContext = ServiceContextFactory.getInstance(actionRequest);
         serviceContext.setExpandoBridgeAttributes(expandoBridgeAttributes);
 
-        UserLocalServiceUtil.addUser(userId, themeDisplay.getCompanyId(), true, "",
-                "", false, screenName, email, Locale.getDefault(), firstName,
-                "", lastName, 0, 0, gender, birthdayMonth, birthdayDay, birthdayYear,
-                "", null, null, null, null, false, serviceContext);
+        try {
+            UserLocalServiceUtil.addUser(userId, themeDisplay.getCompanyId(), true, "",
+                    "", false, screenName, email, Locale.getDefault(), firstName,
+                    "", lastName, 0, 0, gender, birthdayMonth, birthdayDay, birthdayYear,
+                    "", null, null, null, null, false, serviceContext);
+            SessionMessages.add(actionRequest, "userAdded");
+        } catch (UserScreenNameException e) {
+            SessionErrors.add(actionRequest, "screennameDuplicated", e.getClass().getName());
+        } catch (UserEmailAddressException e) {
+            SessionErrors.add(actionRequest, "emailDuplicated", e.getClass().getName());
+        }
     }
 }

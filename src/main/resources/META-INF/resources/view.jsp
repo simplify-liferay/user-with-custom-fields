@@ -1,5 +1,8 @@
-<%@ include file="./init.jsp" %>
+<%@ include file="/init.jsp" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<liferay-ui:success key="userAdded" message="user-added" />
+<liferay-ui:error key="screennameDuplicated" message="screenname-duplicated"/>
+<liferay-ui:error key="emailDuplicated" message="email-duplicated"/>
 
 <%
 	Calendar today = CalendarFactoryUtil.getCalendar();
